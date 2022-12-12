@@ -13,14 +13,24 @@
         <text class="tit">密码</text>
         <input type="password" placeholder="请输入密码" id="password" bindinput="inputMsg" bindconfirm="toLogin"/>
       </view>
+      <view wx:if="{{register}}" style="display:flex;flex-direction: row;">
+        <view class="input-item">
+          <text class="tit">验证码</text>
+          <input type="text" placeholder="请输入验证码" id="captcha" bindinput="inputMsg" bindconfirm="toLogin"/>
+        </view>
+        <view class="input-item" style="width: 180rpx" bindtap="toGetCaptcha">
+          <text class="tit">获取验证码</text>
+        </view> 
+      </view>
+
     </view>
-    <button class="confirm-btn" bindtap="toLogin">登录</button>
-    <view class="forget-section">
+    <button class="confirm-btn" bindtap="{{register ? 'toRegister' : 'toLogin'}}">马上{{register ? "注册" : "登录"}}</button>
+    <view wx:if="{{!register}}" class="forget-section">
       忘记密码?
     </view>
   </view>
   <view class="register-section">
-    还没有账号?
-    <text>马上注册</text>
+    {{register ? "已经拥有账号?" : "还没有账号?"}}
+    <text bindtap="register">马上{{register ? "登录" : "注册"}}</text>
   </view>
 </view>

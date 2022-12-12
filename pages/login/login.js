@@ -1,42 +1,70 @@
 // pages/login/login.js
-Component({
-  /**
-   * 组件的属性列表
-   */
-  properties: {
-
-  },
-
-  /**
-   * 组件的初始数据
-   */
+import {request} from "../../utils/network"
+import config from "../../config/config"
+Page({
   data: {
     email: '',
-    password: ''
+    password: '',
+    captcha: '',
+    register: false,
   },
 
+  onLoad() {
+    
+  },
   /**
    * 组件的方法列表
    */
-  methods: {
-    inputMsg(event) {
-      let type = event.currentTarget.id;
-      this.setData({[type]: event.detail.value});
-    },
-    toLogin() {
-      let {email, password} = this.data;
-      wx.request({
-        url: 'http://localhost:8080/user/api/login',
-        method: 'POST',
-        data: {
-          'email': email,
-          'password': password
-        },
-        success: (result) => {
-          console.log(result.data)
-        }
+  inputMsg(event) {
+    let type = event.currentTarget.id;
+    this.setData({[type]: event.detail.value});
+  },
+  async toLogin() {
+    let {email, password} = this.data;
+    let url = config.host + "user/api/login";
+    let method = "POST";
+    let data = {
+      "email" : email,
+      "password": password,
+      "isLogin": true,
+    };
+    let result = await request(url, data, method);
+    wx.showToast({
+      title: '登录成功',
+    });
+    wx.setStorageSync('userInfo', JSON.stringify(result));
+    setTimeout(() => {
+      wx.reLaunch({
+        url: '/pages/profile/profile',
       });
-
-    }
+    }, 1000)
+  },
+  register() {
+    this.setData({"register": !this.data.register});
+  },
+  async toGetCaptcha() {
+    let {email} = this.data;
+    let url = config.host + "user/api?email=" + email;
+    let result = await request(url, {}, 'GET');
+    wx.showToast({
+      title: result,
+    });
+  },
+  async toRegister() {
+    let {email, password, captcha} = this.data;
+    let url = config.host + "user/api";
+    let method = "POST";
+    let data = {
+      "email" : email,
+      "password": password,
+      "captcha": captcha,
+    };
+    let result = await request(url, data, method);
+    wx.showToast({
+      title: '注册成功',
+    });
+    setTimeout(() => {
+      this.setData({register: false});
+    }, 1000)
   }
 })

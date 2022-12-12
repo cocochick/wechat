@@ -1,0 +1,4 @@
+<!--pages/device/device.wxml-->
+<view wx:for="{{deviceList}}">
+  {{item.id}}
+</view>

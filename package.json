@@ -2,8 +2,7 @@
   "name": "miniprogram",
   "version": "1.0.0",
   "description": "",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {

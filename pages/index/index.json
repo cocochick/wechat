@@ -1,7 +1,6 @@
 {
   "usingComponents": {
-    "pointCloud": "../pointCloud/pointCloud",
-    "login": "../login/login"
+    "pointCloud": "../pointCloud/pointCloud"
   },
   "disableScroll": true
 }

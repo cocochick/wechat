@@ -1,33 +1,4 @@
-page{
-  height: 100%;
-}
-
-.wrapper{
-  position:relative;
-  z-index: 90;
-  padding-bottom: 40rpx;
-}
-
-.left-top-sign{
-  font-size: 120rpx;
-  color: #f8f8f8;
-  position:relative;
-  left: -16rpx;
-}
-
-.welcome{
-  position:relative;
-  left: 50rpx;
-  top: -90rpx;
-  font-size: 46rpx;
-  color: #555;
-}
-
-
-.input-content{
-  padding: 0 60rpx;
-}
-
+/* pages/profile/profile.wxss */
 .input-item{
   display:flex;
   flex-direction: column;
@@ -74,26 +45,4 @@ page{
 
 .confirm-btn2:after{
   border-radius: 100px;
-}
-
-.forget-section{
-  font-size: 28rpx;
-  color: #4399fc;
-  text-align: center;
-  margin-top: 40rpx;
-}
-
-.register-section{
-  position:absolute;
-  left: 0;
-  bottom: 50rpx;
-  width: 100%;
-  font-size: 28rpx;
-  color: #606266;
-  text-align: center;
-}
-
-.register-section text{
-  color: #4399fc;
-  margin-left: 10rpx;
 }
