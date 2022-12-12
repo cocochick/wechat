@@ -2,93 +2,54 @@
 import config from "../../config/config"
 import { request } from "../../utils/network";
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     show: false,
+    focusing: false,
+    id: "",
+    password: "",
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
-/*
     if (!wx.getStorageSync("userInfo")) {
-      wx.reLaunch({
+      wx.redirectTo({
         url: '/pages/login/login',
       })
     }
-    */
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  },
   async logout() {
     const url = config.host + "user/my/logout";
     // TODO: add cookies
-    const result = await request(url, {}, 'GET');
-    wx.setStorageSync('cookies', "");
-    wx.setStorageSync('userInfo', "");
-    wx.reLaunch({
-      url: '/pages/index/index',
+    await request(url, {}, 'GET');
+    wx.clearStorageSync();
+    wx.showToast({
+      title: '注销成功',
     })
+    setTimeout(() => {
+      wx.redirectTo({
+        url: '/pages/login/login',
+      })
+    }, 1000)
   },  
   device() {
-    wx.reLaunch({
+    wx.navigateTo({
       url: '/pages/device/device',
     })
   },
-  overlay() {
-    this.setData({show: !this.data.show});
-  },
   register() {
     this.setData({show: true});
+  },
+  inputMsg(event) {
+    let type = event.currentTarget.id;
+    this.setData({[type]: event.detail.value});
+  },
+  async toRegister() {
+    const {id, password} = this.data;
+    const url = config.host + "user/my?id=" + id + "&password=" + password;
+    const result = await request(url, {}, "PUT");
+    wx.showToast({
+      title: '绑定成功',
+    });
+    this.setData({show: false});
   }
 })

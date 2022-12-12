@@ -1,3 +1,2 @@
-<view style="height: 50px"></view>
-<button class="confirm-btn" bindtap="onTap">个人中心</button>
-<pointCloud />
+<view style="height: 50px" bindtap="onTap"></view>
+<pointCloud wx:if="{{show}}" id="123" point="{{point}}" />

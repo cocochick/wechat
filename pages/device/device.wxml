@@ -1,4 +1,7 @@
 <!--pages/device/device.wxml-->
 <view wx:for="{{deviceList}}">
-  {{item.id}}
+  <view style="display:flex;flex-direction: row;">
+    {{item.id}}
+    <button data-deviceId="{{item.id}}" class="confirm-btn" bindtap='onTap'>选择</button>
+  </view>
 </view>
