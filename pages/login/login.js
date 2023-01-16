@@ -23,12 +23,19 @@ Page({
     let {email, password} = this.data;
     let url = config.host + "user/api/login";
     let method = "POST";
-    let data = {
+    let sendData = {
       "email" : email,
       "password": password,
       "isLogin": true,
     };
-    let result = await request(url, data, method);
+    let result = await request(url, sendData, method);
+    const { code, data } = result;
+    if (code == 0) {
+      wx.showToast({
+        title: '账户名或密码错误',
+      });
+      return;
+    }
     wx.showToast({
       title: '登录成功',
     });
@@ -57,9 +64,22 @@ Page({
     let data = {
       "email" : email,
       "password": password,
-      "captcha": captcha,
+      "smsCode": captcha,
     };
     let result = await request(url, data, method);
+    console.log(result)
+    const { code } = result;
+    if (code == 500) {
+      wx.showToast({
+        title: '内部服务器错误',
+      });
+      return;
+    } else if (code == 0) {
+      wx.showToast({
+        title: '邮箱已注册',
+      });
+      return;
+    }
     wx.showToast({
       title: '注册成功',
     });

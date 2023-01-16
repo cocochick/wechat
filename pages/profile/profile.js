@@ -19,7 +19,6 @@ Page({
 
   async logout() {
     const url = config.host + "user/my/logout";
-    // TODO: add cookies
     await request(url, {}, 'GET');
     wx.clearStorageSync();
     wx.showToast({

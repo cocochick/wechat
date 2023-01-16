@@ -1,4 +1,4 @@
 export default {
-  host: "http://localhost:8080/"
+  host: "http://43.139.62.32:8080/"
 }
 
